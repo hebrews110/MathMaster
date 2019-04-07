@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="jquery.ui.touch-punch.min.js"></script>
+        <script src="jquery.alterclass.js"></script>
+        <script src="dragscrollable.min.js"></script>
+        <script src="algebra-0.2.6.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css">
+
+        <!-- The loading of KaTeX is deferred to speed up page rendering -->
+        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/p5.js"></script>
+        <link rel="stylesheet" href="mathmaster.css">
+        <script src="mathmaster.js"></script>
+
+    </head>
+    <body>
+        <div id="background-img-div"><img id="background-img" src="Calcman.png"/></div>
+        <div class='main-thing'>
+            <div id='instructions-dialog' title='How to play' style='display: none; margin: 5px; text-align: left;'>
+                Your job in this game is to simplify equations. There are two steps.
+                <ol>
+                    <li>
+                        Using the blocks given to you, recreate the equation on the balance scale.
+                        <br>
+                        Be careful! Just because the scale looks balanced doesn't mean you have correctly
+                        placed the blocks.
+                    </li>
+                    <li>
+                        Once you've placed the blocks, a popup will appear where you'll have to perform
+                        mathematical operations on both sides of the equation. Solve for the variable <span id='x-var'></span>.
+                    </li>
+                </ol>
+                <p>
+                <center><button onclick="$('#instructions-dialog').dialog('close');">OK</button></center>
+            </div>
+            <div id='finished-dialog' title='Great job!' style='display: none;'>
+                <span id='finished-equation' style='font-size: 30px;'></span>
+                <p>
+                You can click OK to try another equation if you want.
+                <center><button onclick='nextEquation();'>OK</button></center>
+            </div>
+            <div id="view-dialog" title="Equation:" style="display: none;">
+                <span id="equation-view"></span>
+                <p>
+                <center><button onclick="$('#view-dialog').dialog('close');">OK</button></center>
+            </div>
+            <div id="equation-dialog" title="Simplify the equation!" style="display: none;">
+                <table id="equation-controls-table">
+                    <tr>
+                        <td>
+                            <div id="equation-box">Test</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <fieldset id="equation-buttons">
+                              <label for="add-button">&plus;</label>
+                              <input checked="checked" data-phrase="Add to" type="radio" name="math-things" id="add-button" class="math-op-button">
+                              <label for="subtract-button">&minus;</label>
+                              <input data-phrase="Subtract from" type="radio" name="math-things" id="subtract-button" class="math-op-button">
+                              <label for="multiply-button">&times;</label>
+                              <input data-phrase="Multiply on" type="radio" name="math-things" id="multiply-button" class="math-op-button">
+                              <label for="divide-button">&divide;</label>
+                              <input data-phrase="Divide on" type="radio" name="math-things" id="divide-button" class="math-op-button">
+
+                            </fieldset>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span id='operation-name'>Add to</span> both sides:
+                            <div style="display: inline-block;">
+                                <input id='add-value'/>
+                                <button id="operation-execute">Go!</button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <span id="error-msg" style="color: red;"></span>
+            </div>
+            <div id='shelf-div'>
+                <div id="shelf-canvas"></div>
+                
+                <div class="balance-div" id="left-balance-div">
+                    <div class="balance-img-container-div">
+                        <img src="square_balance_piece.svg" class="square-balance-piece"/>
+                        <div class="balance-items">
+                        </div>
+                    </div>
+                </div> 
+                
+                <div class="balance-div" id="right-balance-div">
+                    <div class="balance-img-container-div">
+                        <img src="square_balance_piece.svg" class="square-balance-piece"/>
+                        <div class="balance-items"></div>
+                    </div>
+                </div> 
+            </div>
+            <div class="main-screen">
+                <span id="original-equation-2"></span>
+                <p>
+                <p>
+                <table align='center'>
+                    <tr>
+                        <td colspan='3'>
+                            <div class='math-obj' data-val='x'>x</div>
+                            <div class='math-obj math-obj-negative' data-val='-x'>-x</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class='math-obj math-obj-number' data-val='1'>1</div>
+                        </td>
+                        <td>
+                            <div class='math-obj math-obj-number' data-val='5'>5</div>
+                        </td>
+                        <td>
+                            <div class='math-obj math-obj-number' data-val='10'>10</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class='math-obj math-obj-number math-obj-negative' data-val='-1'>-1</div>
+                        </td>
+                        <td>
+                            <div class='math-obj math-obj-number math-obj-negative' data-val='-5'>-5</div>
+                        </td>
+                        <td>
+                            <div class='math-obj math-obj-number math-obj-negative' data-val='-10'>-10</div>
+                        </td>
+                    </tr>
+                </table>
+                <div id="matches" class="noselect">Blocks on the shelf don't match the equation.</div>
+            </div>
+        </div>
+    </body>
+</html>

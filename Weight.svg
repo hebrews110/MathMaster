@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="svg2"
+   sodipodi:docname="Weight.svg"
+   viewBox="0 0 400 400"
+   sodipodi:version="0.32"
+   version="1.0"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   inkscape:version="0.92.4 (unknown)">
+  <sodipodi:namedview
+     id="base"
+     bordercolor="#666666"
+     inkscape:pageshadow="2"
+     guidetolerance="10"
+     pagecolor="#ffffff"
+     gridtolerance="10000"
+     inkscape:snap-global="false"
+     inkscape:zoom="1.6228571"
+     objecttolerance="10"
+     inkscape:window-height="1056"
+     showgrid="false"
+     borderopacity="1.0"
+     inkscape:current-layer="layer1"
+     inkscape:cx="64.017651"
+     inkscape:cy="253.25484"
+     inkscape:window-y="24"
+     inkscape:window-x="65"
+     inkscape:window-width="1855"
+     inkscape:pageopacity="0.0"
+     inkscape:document-units="px"
+     inkscape:window-maximized="1" />
+  <defs
+     id="defs4">
+    <radialGradient
+       id="radialGradient2487"
+       gradientUnits="userSpaceOnUse"
+       cy="444.92"
+       cx="406.46"
+       gradientTransform="matrix(1 0 0 .94069 0 26.388)"
+       r="9.4844"
+       inkscape:collect="always">
+      <stop
+         id="stop3271"
+         style="stop-color:#ffffff"
+         offset="0" />
+      <stop
+         id="stop3273"
+         style="stop-color:#5f5f5f;stop-opacity:0"
+         offset="1" />
+    </radialGradient>
+    <radialGradient
+       id="radialGradient2489"
+       gradientUnits="userSpaceOnUse"
+       cy="444.92"
+       cx="406.46"
+       gradientTransform="matrix(1 0 0 .94069 0 26.388)"
+       r="9.4844"
+       inkscape:collect="always">
+      <stop
+         id="stop3289"
+         style="stop-color:#000000;stop-opacity:0"
+         offset="0" />
+      <stop
+         id="stop3295"
+         style="stop-color:#000000;stop-opacity:.054902"
+         offset=".5" />
+      <stop
+         id="stop3291"
+         style="stop-color:#777777;stop-opacity:.60234"
+         offset="1" />
+    </radialGradient>
+    <linearGradient
+       id="linearGradient2491"
+       y2="447.18"
+       gradientUnits="userSpaceOnUse"
+       x2="412.45"
+       gradientTransform="translate(.10219 5.1451)"
+       y1="441.12"
+       x1="408.5"
+       inkscape:collect="always">
+      <stop
+         id="stop3299"
+         style="stop-color:#000000;stop-opacity:0"
+         offset="0" />
+      <stop
+         id="stop3301"
+         style="stop-color:#000000"
+         offset="1" />
+    </linearGradient>
+    <radialGradient
+       id="radialGradient2493"
+       gradientUnits="userSpaceOnUse"
+       cy="437.36"
+       cx="387.77"
+       gradientTransform="matrix(.10937 .12016 -.46182 .42035 560.06 207.9)"
+       r="9.4844"
+       inkscape:collect="always">
+      <stop
+         id="stop3313"
+         style="stop-color:#ffffff;stop-opacity:.35673"
+         offset="0" />
+      <stop
+         id="stop3315"
+         style="stop-color:#ffffff;stop-opacity:0"
+         offset="1" />
+    </radialGradient>
+    <linearGradient
+       id="linearGradient2501"
+       y2="653.4"
+       gradientUnits="userSpaceOnUse"
+       x2="350.84"
+       gradientTransform="matrix(1.41 0 0 1.928 -120.43 -545.28)"
+       y1="488.37"
+       x1="384.01"
+       inkscape:collect="always">
+      <stop
+         id="stop3331"
+         style="stop-color:#444444"
+         offset="0" />
+      <stop
+         id="stop3333"
+         style="stop-color:#000000"
+         offset="1" />
+    </linearGradient>
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Colorize"
+       id="filter1533">
+      <feComposite
+         in2="SourceGraphic"
+         operator="arithmetic"
+         k1="0"
+         k2="1"
+         result="composite1"
+         id="feComposite1519" />
+      <feColorMatrix
+         in="composite1"
+         values="1"
+         type="saturate"
+         result="colormatrix1"
+         id="feColorMatrix1521" />
+      <feFlood
+         flood-opacity="1"
+         flood-color="rgb(22,4,249)"
+         result="flood1"
+         id="feFlood1523" />
+      <feBlend
+         in="flood1"
+         in2="colormatrix1"
+         mode="lighten"
+         result="blend1"
+         id="feBlend1525" />
+      <feBlend
+         in2="blend1"
+         mode="lighten"
+         result="blend2"
+         id="feBlend1527" />
+      <feColorMatrix
+         in="blend2"
+         values="1"
+         type="saturate"
+         result="colormatrix2"
+         id="feColorMatrix1529" />
+      <feComposite
+         in="colormatrix2"
+         in2="SourceGraphic"
+         operator="in"
+         k2="1"
+         result="composite2"
+         id="feComposite1531" />
+    </filter>
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Colorize"
+       id="filter1549">
+      <feComposite
+         in2="SourceGraphic"
+         operator="arithmetic"
+         k1="0"
+         k2="1"
+         result="composite1"
+         id="feComposite1535" />
+      <feColorMatrix
+         in="composite1"
+         values="1"
+         type="saturate"
+         result="colormatrix1"
+         id="feColorMatrix1537" />
+      <feFlood
+         flood-opacity="1"
+         flood-color="rgb(22,4,249)"
+         result="flood1"
+         id="feFlood1539" />
+      <feBlend
+         in="flood1"
+         in2="colormatrix1"
+         mode="lighten"
+         result="blend1"
+         id="feBlend1541" />
+      <feBlend
+         in2="blend1"
+         mode="lighten"
+         result="blend2"
+         id="feBlend1543" />
+      <feColorMatrix
+         in="blend2"
+         values="1"
+         type="saturate"
+         result="colormatrix2"
+         id="feColorMatrix1545" />
+      <feComposite
+         in="colormatrix2"
+         in2="SourceGraphic"
+         operator="in"
+         k2="1"
+         result="composite2"
+         id="feComposite1547" />
+    </filter>
+  </defs>
+  <g
+     id="layer1"
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     transform="translate(-293.94 -311.98)">
+    <g
+       id="g3343"
+       transform="matrix(5.6251 0 0 4.6071 -1792.1 -1696.7)"
+       style="filter:url(#filter1549)">
+      <path
+         id="path2446"
+         style="fill:#000000"
+         d="m406.45 436c-5.24 0-9.47 4.01-9.47 8.94 0 4.92 4.23 8.91 9.47 8.91 5.23 0 9.5-3.99 9.5-8.91 0-4.93-4.27-8.94-9.5-8.94zm0 3.53c3.16 0 5.75 2.43 5.75 5.41s-2.59 5.37-5.75 5.37c-3.17 0-5.72-2.39-5.72-5.37s2.55-5.41 5.72-5.41z" />
+      <path
+         id="path2497"
+         style="fill:url(#radialGradient2487)"
+         d="m406.45 436c-5.24 0-9.47 4.01-9.47 8.94 0 4.92 4.23 8.91 9.47 8.91 5.23 0 9.5-3.99 9.5-8.91 0-4.93-4.27-8.94-9.5-8.94zm0 3.53c3.16 0 5.75 2.43 5.75 5.41s-2.59 5.37-5.75 5.37c-3.17 0-5.72-2.39-5.72-5.37s2.55-5.41 5.72-5.41z" />
+      <path
+         id="path3277"
+         style="fill:url(#radialGradient2489)"
+         d="m406.45 436c-5.24 0-9.47 4.01-9.47 8.94 0 4.92 4.23 8.91 9.47 8.91 5.23 0 9.5-3.99 9.5-8.91 0-4.93-4.27-8.94-9.5-8.94zm0 3.53c3.16 0 5.75 2.43 5.75 5.41s-2.59 5.37-5.75 5.37c-3.17 0-5.72-2.39-5.72-5.37s2.55-5.41 5.72-5.41z" />
+      <path
+         id="path2495"
+         style="fill:url(#linearGradient2491)"
+         d="m406.45 436c-5.24 0-9.47 4.01-9.47 8.94 0 4.92 4.23 8.91 9.47 8.91 5.23 0 9.5-3.99 9.5-8.91 0-4.93-4.27-8.94-9.5-8.94zm0 3.53c3.16 0 5.75 2.43 5.75 5.41s-2.59 5.37-5.75 5.37c-3.17 0-5.72-2.39-5.72-5.37s2.55-5.41 5.72-5.41z" />
+      <path
+         id="path2493"
+         style="fill:url(#radialGradient2493)"
+         d="m406.45 436c-5.24 0-9.47 4.01-9.47 8.94 0 4.92 4.23 8.91 9.47 8.91 5.23 0 9.5-3.99 9.5-8.91 0-4.93-4.27-8.94-9.5-8.94zm0 3.53c3.16 0 5.75 2.43 5.75 5.41s-2.59 5.37-5.75 5.37c-3.17 0-5.72-2.39-5.72-5.37s2.55-5.41 5.72-5.41z" />
+    </g>
+    <path
+       id="rect2417"
+       sodipodi:nodetypes="ccccc"
+       style="stroke-linejoin:round;stroke:#000000;stroke-linecap:round;fill:url(#linearGradient2501);filter:url(#filter1533)"
+       d="m409.05 388.4l169.2-0.99 114.67 323.6-397.78-0.5 113.91-322.11z" />
+  </g>
+  <metadata
+     id="metadata30">
+    <rdf:RDF>
+      <cc:Work>
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/publicdomain/" />
+        <dc:publisher>
+          <cc:Agent
+             rdf:about="http://openclipart.org/">
+            <dc:title>Openclipart</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:title>10 kg weight</dc:title>
+        <dc:date>2010-04-01T13:31:05</dc:date>
+        <dc:description>This is another 10kg weight - this time in front view.</dc:description>
+        <dc:source>https://openclipart.org/detail/35719/10-kg-weight-by-klaasvangend-35719</dc:source>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>klaasvangend</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>weight</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/publicdomain/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+</svg>
