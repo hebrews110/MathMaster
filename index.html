@@ -28,7 +28,7 @@ and open the template in the editor.
     <body>
         <div id="background-img-div"><img id="background-img" src="Calcman.png"/></div>
         <div class='main-thing'>
-            <div id='instructions-dialog' title='How to play' style='display: none; margin: 5px; text-align: left;'>
+            <div id='instructions-dialog' title='How to play' style='display: none; margin: 5px; text-align: left; overflow: scroll;'>
                 Your job in this game is to simplify equations. There are two steps.
                 <ol>
                     <li>
@@ -43,7 +43,7 @@ and open the template in the editor.
                     </li>
                 </ol>
                 <p>
-                <center><button onclick="$('#instructions-dialog').dialog('close');">OK</button></center>
+                <center><button tabindex="-1" onclick="$('#instructions-dialog').dialog('close');">OK</button></center>
             </div>
             <div id='finished-dialog' title='Great job!' style='display: none;'>
                 <span id='finished-equation' style='font-size: 30px;'></span>
@@ -56,46 +56,12 @@ and open the template in the editor.
                 <p>
                 <center><button onclick="$('#view-dialog').dialog('close');">OK</button></center>
             </div>
-            <div id="equation-dialog" title="Simplify the equation!" style="display: none;">
-                <table id="equation-controls-table">
-                    <tr>
-                        <td>
-                            <div id="equation-box">Test</div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <fieldset id="equation-buttons">
-                              <label for="add-button">&plus;</label>
-                              <input checked="checked" data-phrase="Add to" type="radio" name="math-things" id="add-button" class="math-op-button">
-                              <label for="subtract-button">&minus;</label>
-                              <input data-phrase="Subtract from" type="radio" name="math-things" id="subtract-button" class="math-op-button">
-                              <label for="multiply-button">&times;</label>
-                              <input data-phrase="Multiply on" type="radio" name="math-things" id="multiply-button" class="math-op-button">
-                              <label for="divide-button">&divide;</label>
-                              <input data-phrase="Divide on" type="radio" name="math-things" id="divide-button" class="math-op-button">
-
-                            </fieldset>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span id='operation-name'>Add to</span> both sides:
-                            <div style="display: inline-block;">
-                                <input id='add-value'/>
-                                <button id="operation-execute">Go!</button>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-                <span id="error-msg" style="color: red;"></span>
-            </div>
             <div id='shelf-div'>
                 <div id="shelf-canvas"></div>
                 
                 <div class="balance-div" id="left-balance-div">
                     <div class="balance-img-container-div">
-                        <img src="square_balance_piece.svg" class="square-balance-piece"/>
+                        <img src="square_balance_piece.svg" draggable="false" class="square-balance-piece"/>
                         <div class="balance-items">
                         </div>
                     </div>
@@ -103,46 +69,97 @@ and open the template in the editor.
                 
                 <div class="balance-div" id="right-balance-div">
                     <div class="balance-img-container-div">
-                        <img src="square_balance_piece.svg" class="square-balance-piece"/>
+                        <img src="square_balance_piece.svg" draggable="false" class="square-balance-piece"/>
                         <div class="balance-items"></div>
                     </div>
                 </div> 
             </div>
-            <div class="main-screen">
-                <span id="original-equation-2"></span>
-                <p>
-                <p>
-                <table align='center'>
-                    <tr>
-                        <td colspan='3'>
-                            <div class='math-obj' data-val='x'>x</div>
-                            <div class='math-obj math-obj-negative' data-val='-x'>-x</div>
-                        </td>
-                    </tr>
+            <div class="main-screen" id="blocks-screen">
+                <table style="vertical-align: middle; height: 100%; width: 100%;">
                     <tr>
                         <td>
-                            <div class='math-obj math-obj-number' data-val='1'>1</div>
-                        </td>
-                        <td>
-                            <div class='math-obj math-obj-number' data-val='5'>5</div>
-                        </td>
-                        <td>
-                            <div class='math-obj math-obj-number' data-val='10'>10</div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class='math-obj math-obj-number math-obj-negative' data-val='-1'>-1</div>
-                        </td>
-                        <td>
-                            <div class='math-obj math-obj-number math-obj-negative' data-val='-5'>-5</div>
-                        </td>
-                        <td>
-                            <div class='math-obj math-obj-number math-obj-negative' data-val='-10'>-10</div>
+                            <span id="original-equation-2"></span>
+                            <p>
+                            <p>
+                            <table align='center'>
+                                <tr>
+                                    <td colspan='3'>
+                                        <div class='math-obj' data-val='x'>x</div>
+                                        <div class='math-obj math-obj-negative' data-val='-x'>-x</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class='math-obj math-obj-number' data-val='1'>1</div>
+                                    </td>
+                                    <td>
+                                        <div class='math-obj math-obj-number' data-val='5'>5</div>
+                                    </td>
+                                    <td>
+                                        <div class='math-obj math-obj-number' data-val='10'>10</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class='math-obj math-obj-number math-obj-negative' data-val='-1'>-1</div>
+                                    </td>
+                                    <td>
+                                        <div class='math-obj math-obj-number math-obj-negative' data-val='-5'>-5</div>
+                                    </td>
+                                    <td>
+                                        <div class='math-obj math-obj-number math-obj-negative' data-val='-10'>-10</div>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div id="matches" class="noselect">Blocks on the shelf don't match the equation.</div>
                         </td>
                     </tr>
                 </table>
-                <div id="matches" class="noselect">Blocks on the shelf don't match the equation.</div>
+            </div>
+            <div class="main-screen" id="equation-simplify-screen">
+                 <table style="vertical-align: middle; height: 100%; width: 100%;">
+                    <tr>
+                        <td>
+                            <table id="equation-controls-table">
+                                <tr>
+                                    <td>
+                                        <div id="equation-box">Test</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <fieldset id="equation-buttons">
+                                          <label for="add-button">&plus;</label>
+                                          <input checked="checked" data-phrase="Add to" type="radio" name="math-things" id="add-button" class="math-op-button">
+                                          <label for="subtract-button">&minus;</label>
+                                          <input data-phrase="Subtract from" type="radio" name="math-things" id="subtract-button" class="math-op-button">
+                                          <label for="multiply-button">&times;</label>
+                                          <input data-phrase="Multiply on" type="radio" name="math-things" id="multiply-button" class="math-op-button">
+                                          <label for="divide-button">&divide;</label>
+                                          <input data-phrase="Divide on" type="radio" name="math-things" id="divide-button" class="math-op-button">
+
+                                        </fieldset>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span id='operation-name'>Add to</span> both sides:
+                                        <div id="input-container">
+                                            <input size="5" id='add-value'/>
+                                            <button id="operation-execute">Go!</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span id="error-msg"></span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                 </table>
+                
             </div>
         </div>
     </body>

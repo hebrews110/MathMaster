@@ -24,8 +24,11 @@ var isBalanced = false;
 
 var eqString = "";
 
+var targetAngle = 0;
 var movementAngle = 10;
 var mathObjHeight = 25;
+
+var $animationObject;
 
 var barAngle = 0;
 
@@ -76,7 +79,7 @@ Fraction.prototype.invert = function() {
 
 
 
-function updateEquation() {
+function updateEquation(equationExecution) {
     var isSolved = false;
     var thisString;
     var latex = algebra.toTex(currentEquation);
@@ -101,10 +104,15 @@ function updateEquation() {
            isSolved = true;
     }
     
-    
+    if(equationExecution !== undefined && equationExecution) {
+        /* We're solving the equation */
+        /* dump it onto the shelves */
+        resync(currentEquation.lhs, $("#left-balance-div").find(".balance-items"));
+        resync(currentEquation.rhs, $("#right-balance-div").find(".balance-items"));
+    }
     
     if(isSolved) {
-        $("#equation-dialog").dialog('close');
+        showEquationDialog(false);
         $("#finished-equation").html(thisString);
         $("#finished-dialog").dialog({ modal: true });
     }
@@ -216,17 +224,81 @@ function updateBalance() {
         console.log("A CLICK EVENT");
         var expr = algebra.parse($(this).text());
         console.log(expr);
-        if($(this).parent().parent().parent().attr("id") === "left-balance-div")
+        if($(this).parent().parent().parent().attr("id") === "left-balance-div") {
             leftWeight = leftWeight.subtract(expr);
-        else
+            resync(leftWeight, $(this).parent());
+        } else {
             rightWeight = rightWeight.subtract(expr);
+            resync(rightWeight, $(this).parent());
+        }
         $(this).remove();
         updateBalance();
     });
 }
 
-function showEquationDialog() {
-    $("#equation-dialog").dialog({ modal: true, dialogClass: 'noTitleStuff', width: 'auto', height: 'auto' });
+function resync(expression, $shelfside) {
+    $shelfside.empty();
+    for(var i = 0; i < expression.terms.length; i++) {
+        
+        var n = expression.terms[i].coefficient().valueOf();
+        for(var j = 0; j < Math.abs(n); j++) {
+            var newEl = document.createElement("div");
+            newEl.classList.add("math-obj");
+            newEl.classList.add("math-obj-on-shelf");
+            var prefix = "";
+            if(Math.abs(n) < 1)
+                prefix += expression.terms[i].coefficient().toString();
+            else if(n < 0) {
+                newEl.classList.add("math-obj-negative");
+                prefix = "-";
+            }
+            
+                
+            $(newEl).text(prefix + expression.terms[i].variables[0].toString());
+            $shelfside.append(newEl);
+        }
+    }
+    console.log("Constants on " + $shelfside.toString() + ": " + expression.constants.length);
+    for(var i = 0; i < expression.constants.length; i++) {
+        var abs_fract = Math.abs(expression.constants[i].valueOf());
+        if(abs_fract > 0 && abs_fract < 1) {
+            var newEl = document.createElement("div");
+            newEl.classList.add("math-obj");
+            newEl.classList.add("math-obj-on-shelf");
+            newEl.classList.add("math-obj-number");
+            if(expression.constants[i].valueOf() < 0) {
+                newEl.classList.add("math-obj-negative");
+            }
+            $(newEl).text(expression.constants[i].toString());
+            $shelfside.append(newEl);
+        } else {
+            /* Is a number - split it into individual blocks */
+            var isNegative = (expression.constants[i].valueOf()) < 0;
+            for(var j = 0; j < abs_fract; j++) {
+                var prefix = "";
+                var newEl = document.createElement("div");
+                newEl.classList.add("math-obj");
+                newEl.classList.add("math-obj-on-shelf");
+                newEl.classList.add("math-obj-number");
+                if(isNegative) {
+                    newEl.classList.add("math-obj-negative");
+                    prefix = "-";
+                }
+                $(newEl).text(prefix + "1");
+                $shelfside.append(newEl);
+            }
+        }
+    }
+}
+
+function showEquationDialog(show) {
+    if(show === undefined || show) {
+        $("#blocks-screen").hide();
+        $("#equation-simplify-screen").show();
+    } else {
+        $("#equation-simplify-screen").hide();
+        $("#blocks-screen").show();
+    }
 }
 
 function reposition($this) {
@@ -300,10 +372,9 @@ $(function() {
         }
         
         if($("#error-msg").text() === "") {
-            updateEquation();
+            updateEquation(true);
         }
     }); 
-    
     $("#add-button").click();
     
     //$("#equation-dialog").dialog({ modal: true, dialogClass: 'noTitleStuff', width: 'auto', height: 'auto' });
@@ -314,23 +385,27 @@ $(function() {
         drop: function(event, ui) {
             var expr = algebra.parse($(ui.helper).text());
             
-            if($(this).parent().parent().attr("id") === "left-balance-div")
+            if($(this).parent().parent().attr("id") === "left-balance-div") {
                 leftWeight = leftWeight.add(expr);
-            else
+                resync(leftWeight, $(this));
+            } else {
                 rightWeight = rightWeight.add(expr);
-            
+                resync(rightWeight, $(this));
+            }
+            /*
             var $newEl = $(ui.helper).clone().removeClass('ui-draggable');
             $newEl.removeClass('ui-draggable-dragging');
             $newEl.removeClass('ui-draggable-handle');
             $newEl.css({ position: '', top: '', left: '' });
             $newEl.addClass('math-obj-on-shelf');
-            $(this).append($newEl);
+            $(this).append($newEl); */
             updateBalance();
         }
     });
     nextEquation();
     katex.render("x", $("#x-var")[0]);
     $("#instructions-dialog").dialog({ modal: true });
+    showEquationDialog(false);
 });
 
 function dtor(angle) {
@@ -338,7 +413,15 @@ function dtor(angle) {
 }
 
 function goToAngle(angle) {
-    $({ n: barAngle }).animate({ n: angle }, {
+    if(angle === barAngle) {
+        if($animationObject !== undefined)
+            $animationObject.stop();
+        return;
+    } else if(angle === targetAngle) {
+        return;
+    }
+    targetAngle = angle;
+    $animationObject = $({ n: barAngle }).animate({ n: angle }, {
         duration: 2000,
         step: function(now, fx) {
             barAngle = now;
@@ -408,3 +491,33 @@ const s = function( p ) {
 
 var myp5 = new p5(s, 'shelf-canvas');
 
+
+function measureText(pText, pFontSize, pFamily, pWeight) {
+    var lDiv = document.createElement('div');
+
+    document.body.appendChild(lDiv);
+  
+    if (pFamily != null) {
+        lDiv.style.fontFamily = pFamily;
+    }
+    if (pWeight != null) {
+        lDiv.style.fontWeight = pWeight;
+    }
+    lDiv.style.fontSize = "" + pFontSize + "px";
+    lDiv.style.position = "absolute";
+    lDiv.style.left = -1000;
+    lDiv.style.top = -1000;
+ 
+    lDiv.innerHTML = pText;
+
+    var lResult = {
+        width: lDiv.clientWidth,
+        height: lDiv.clientHeight
+    };
+
+    document.body.removeChild(lDiv);
+    lDiv = null;
+
+  return lResult;
+}
+ 
