@@ -45,12 +45,6 @@ and open the template in the editor.
                 <p>
                 <center><button tabindex="-1" onclick="$('#instructions-dialog').dialog('close');">OK</button></center>
             </div>
-            <div id='finished-dialog' title='Great job!' style='display: none;'>
-                <span id='finished-equation' style='font-size: 30px;'></span>
-                <p>
-                You can click OK to try another equation if you want.
-                <center><button onclick='nextEquation();'>OK</button></center>
-            </div>
             <div id="view-dialog" title="Equation:" style="display: none;">
                 <span id="equation-view"></span>
                 <p>
@@ -73,6 +67,13 @@ and open the template in the editor.
                         <div class="balance-items"></div>
                     </div>
                 </div> 
+            </div>
+            <div class="main-screen" id="success-screen">
+                Great job!
+                <br/>
+                <span id='finished-equation' style='font-size: 30px;'></span>
+                <p>
+                <button onclick="nextEquation()">Try another equation</button>
             </div>
             <div class="main-screen" id="blocks-screen">
                 <table style="vertical-align: middle; height: 100%; width: 100%;">
