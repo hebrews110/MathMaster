@@ -114,7 +114,8 @@ function updateEquation(equationExecution) {
     if(isSolved) {
         showEquationDialog(false);
         $("#finished-equation").html(thisString);
-        $("#finished-dialog").dialog({ modal: true });
+        $("#success-screen").show();
+        $("#blocks-screen").hide();
     }
 }
 
@@ -138,47 +139,65 @@ function getRandomInt(min, max) {
 }
 
 function generateEquation() {
+    var isOneStep = Math.random() < 0.5;
     var lhs, rhs;
-    var rhc_int;
-    
-    /* First generate the left hand side of the equation */
-    lhs = new Expression("x");
-    /* Generate the coefficient */
-    var lhc = getRandomInt(1, 4);
-    lhs = lhs.multiply(lhc);
-    /* Optionally, add a value to the left side */
-    
-    lhs = lhs.add(getRandomInt(0, 9));
-    
-    /* Generating the right hand side is trickier. We must be very careful to
-     * actually keep the equation balanced. Start out by choosing a similar coefficient.
-     */
-    rhs = new Expression("x");
-    
-    do {
-        rhc_int = getRandomInt(1, 4);
-    } while(rhc_int === lhc);
-    var rhc = new Fraction(rhc_int, 1);
-    console.log(rhc);
-    rhs = rhs.multiply(rhc);
-    console.log(rhs);
-    /* Now add a temporary variable, "b" to the equation. Just like calculating
-     * the y-intercept in a high school algebra slope equation, we calculate the
-     * necessary value to add to the right by solving the equation for b.
-     */
-    var bVar = new Expression("b");
-    rhs = rhs.add(bVar.copy());
-    var tmpEquation = new Equation(lhs.copy(), rhs.copy());
-    var b;
-    do {
-        realX = getRandomInt(-3, 10);
-        var tmpEquation2 = tmpEquation.eval({ x : realX });
-        b = tmpEquation2.solveFor("b");
-        console.log(b);
-    } while(b.denom !== 1 || b.numer < 0 || b.numer > 9);
-    
-    /* Substitute b's value into the original equation */
-    rhs = rhs.subtract(bVar).add(b);
+    if(!isOneStep) {
+        var rhc_int;
+        
+        /* First generate the left hand side of the equation */
+        lhs = new Expression("x");
+        /* Generate the coefficient */
+        var lhc = getRandomInt(1, 4);
+        lhs = lhs.multiply(lhc);
+        /* Optionally, add a value to the left side */
+        
+        lhs = lhs.add(isOneStep ? 0 : getRandomInt(0, 9));
+        
+        /* Generating the right hand side is trickier. We must be very careful to
+         * actually keep the equation balanced. Start out by choosing a similar coefficient.
+         */
+        rhs = new Expression("x");
+        
+        do {
+            rhc_int = getRandomInt(1, 4);
+        } while(rhc_int === lhc);
+        var rhc = new Fraction(rhc_int, 1);
+        console.log(rhc);
+        rhs = rhs.multiply(rhc);
+        console.log(rhs);
+        /* Now add a temporary variable, "b" to the equation. Just like calculating
+         * the y-intercept in a high school algebra slope equation, we calculate the
+         * necessary value to add to the right by solving the equation for b.
+         */
+        var bVar = new Expression("b");
+        rhs = rhs.add(bVar.copy());
+        var tmpEquation = new Equation(lhs.copy(), rhs.copy());
+        var b;
+        do {
+            realX = getRandomInt(-3, 10);
+            var tmpEquation2 = tmpEquation.eval({ x : realX });
+            b = tmpEquation2.solveFor("b");
+            console.log(b);
+        } while(realX == 0 || b.denom !== 1 || b.numer < 0 || b.numer > 9);
+        
+        /* Substitute b's value into the original equation */
+        rhs = rhs.subtract(bVar).add(b);
+    } else {
+        do {
+            realX = getRandomInt(-3, 10);
+        } while(realX == 0);
+        var operationMode = getRandomInt(1, 3);
+        var operationFnNames = [ "add", "subtract", "multiply" ];
+        var secondNum = (operationMode==3) ? getRandomInt(1, 5) : getRandomInt(1, 20);
+        lhs = new Expression("x")[operationFnNames[operationMode-1]](secondNum);
+        var otherNum = lhs.eval({ x: realX });
+        rhs = new Expression(otherNum.constant().valueOf());
+        if(Math.random() < 0.5) {
+            var tmp = lhs;
+            lhs = rhs;
+            rhs = tmp;
+        }
+    }
     leftWeight = new Expression(0);
     rightWeight = new Expression(0);
     eqString = "";
@@ -294,9 +313,11 @@ function resync(expression, $shelfside) {
 function showEquationDialog(show) {
     if(show === undefined || show) {
         $("#blocks-screen").hide();
+        $("#success-screen").hide();
         $("#equation-simplify-screen").show();
     } else {
         $("#equation-simplify-screen").hide();
+        $("#success-screen").hide();
         $("#blocks-screen").show();
     }
 }
