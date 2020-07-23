@@ -138,8 +138,18 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, '\\$&');
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
+
 function generateEquation() {
-    var isOneStep = Math.random() < 0.5;
+    var isOneStep = getParameterByName("oneStep") != null;
     var lhs, rhs;
     if(!isOneStep) {
         var rhc_int;
@@ -333,6 +343,8 @@ function reposition($this) {
 function nextEquation() {
     $(".balance-items").empty();
     try { $("#finished-dialog").dialog('close'); } catch (e) {}
+    $("#success-screen").hide();
+    $("#blocks-screen").show();
     originalEquation = currentEquation = generateEquation();
     updateEquation();
     katex.render(algebra.toTex(originalEquation), $("#original-equation-2")[0]);
